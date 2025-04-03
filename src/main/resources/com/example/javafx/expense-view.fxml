@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+
+
+<VBox xmlns:fx="http://javafx.com/fxml" alignment="center" stylesheets="@css/expense-view.css" fx:controller="com.example.javafx.controllers.ExpenseController">
+    <Label styleClass="title" text="Tableau récapitulatif des dépenses"/>
+    <TableView fx:id="expenseTable" >
+        <columns>
+            <TableColumn editable="false" text="Periode">
+                <cellValueFactory>
+                    <PropertyValueFactory property="periode"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" text="Total">
+                <cellValueFactory>
+                    <PropertyValueFactory property="total"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" text="Logement">
+                <cellValueFactory>
+                    <PropertyValueFactory property="logement"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" text="Nourriture">
+                <cellValueFactory>
+                    <PropertyValueFactory property="nourriture"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" text="Sorties">
+                <cellValueFactory>
+                    <PropertyValueFactory property="sorties"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" text="Voiture/Transport">
+                <cellValueFactory>
+                    <PropertyValueFactory property="voiture"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" text="Voyage">
+                <cellValueFactory>
+                    <PropertyValueFactory property="voyage"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" text="Impôts">
+                <cellValueFactory>
+                    <PropertyValueFactory property="impots"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" text="Autres">
+                <cellValueFactory>
+                    <PropertyValueFactory property="autres"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+
+    <Button text="Ajouter" onAction="#addLine"/>
+</VBox>

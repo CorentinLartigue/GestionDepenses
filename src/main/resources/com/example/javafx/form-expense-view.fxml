@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.javafx.controllers.FormulaireDialogController" stylesheets="@css/form-expense-view.css">
+  <Label text="Formulaire d'ajout de dépenses"/>
+  <GridPane hgap="10" vgap="10">
+    <Label text="Période (jj/mm/aaaa) :" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <DatePicker fx:id="periodeField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+    <Label text="Logement :" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <TextField fx:id="logementField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+    <Label text="Nourriture :" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+    <TextField fx:id="nourritureField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+    <Label text="Sorties :" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+    <TextField fx:id="sortiesField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+    <Label text="Voiture :" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+    <TextField fx:id="voitureField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+    <Label text="Voyage :" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+    <TextField fx:id="voyageField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+    <Label text="Impôts :" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+    <TextField fx:id="impotsField" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+    <Label text="Autres :" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+    <TextField fx:id="autresField" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+  </GridPane>
+
+  <HBox spacing="10">
+    <Button text="Annuler" onAction="#handleCancel"/>
+    <Button fx:id="validateButton" text="Valider" onAction="#handleOk"/>
+  </HBox>
+</VBox>

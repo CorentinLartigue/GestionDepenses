@@ -1,0 +1,113 @@
+/* ===== Style général ===== */
+.root {
+    -fx-font-family: "Arial";
+    -fx-background-color: #e6f2ff; /* Bleu ciel clair */
+    -fx-padding: 20px;
+}
+
+/* ===== Titre principal ===== */
+.label {
+    -fx-font-size: 20px;
+    -fx-text-fill: #0056b3; /* Bleu profond */
+    -fx-font-weight: bold;
+    -fx-padding: 5px 0;
+    -fx-alignment: center;
+}
+
+/* ===== Grille des champs ===== */
+.grid-pane {
+    -fx-hgap: 10px;
+    -fx-vgap: 10px;
+}
+
+/* ===== Champs de texte ===== */
+.text-field {
+    -fx-pref-width: 220px;
+    -fx-padding: 6px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #b3d9ff; /* Bordure bleu ciel */
+    -fx-border-radius: 8px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+.text-field:focused {
+    -fx-border-color: #0078d4;
+    -fx-background-color: #f0f8ff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 120, 212, 0.4), 5, 0, 0, 2);
+}
+
+/* ===== DatePicker ===== */
+.date-picker {
+    -fx-pref-width: 220px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #b3d9ff;
+    -fx-border-radius: 8px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+.date-picker:focused {
+    -fx-border-color: #0078d4;
+    -fx-background-color: #f0f8ff;
+}
+
+/* ===== Boutons ===== */
+.button {
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 3);
+}
+
+/* ===== Bouton Valider ===== */
+#validateButton {
+    -fx-background-color: #0078d4;
+    -fx-text-fill: white;
+}
+
+#validateButton:disabled {
+    -fx-background-color: #cccccc;
+    -fx-text-fill: #666666;
+}
+
+#validateButton:hover {
+    -fx-background-color: #0056b3;
+    -fx-opacity: 0.9;
+}
+
+/* ===== Bouton Annuler ===== */
+.button[text="Annuler"] {
+    -fx-background-color: #d9534f;
+    -fx-text-fill: white;
+}
+
+.button[text="Annuler"]:hover {
+    -fx-background-color: #c9302c;
+}
+
+/* ===== Conteneur principal ===== */
+.vbox {
+    -fx-alignment: center;
+    -fx-spacing: 15px;
+    -fx-padding: 25px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #b3d9ff;
+    -fx-border-radius: 12px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 120, 212, 0.2), 10, 0, 0, 5);
+}
+
+/* ===== Zone des boutons ===== */
+.hbox {
+    -fx-spacing: 10px;
+    -fx-alignment: center;
+}
+
+/* ===== Effet survol des champs ===== */
+.text-field:hover, .date-picker:hover {
+    -fx-border-color: #0078d4;
+}
+
+
