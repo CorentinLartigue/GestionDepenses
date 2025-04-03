@@ -38,6 +38,8 @@ jobs:
           cache: 'gradle'
       - name: Vérifier Java
         run: java -version
+      - name: Donner les permissions à gradlew
+        run: chmod +x gradlew
       - name: Construire et tester
         run: ./gradlew clean build jlink jpackage
  
