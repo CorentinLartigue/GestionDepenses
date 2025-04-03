@@ -1,0 +1,61 @@
+name: CI - Test sur Linux, Windows et macOS
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  # Job pour tester sous Linux
+  test-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Vérifier le code
+        uses: actions/checkout@v3
+      - name: Installer Java 21
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'gradle'
+      - name: Vérifier Java
+        run: java -version
+      - name: Construire et tester
+        run: ./gradlew clean build jlink jpackage
+ 
+  # Job pour tester sous Windows
+  test-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Vérifier le code
+        uses: actions/checkout@v3
+      - name: Installer Java 21
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'gradle'
+      - name: Vérifier Java
+        run: java -version
+      - name: Construire et tester
+        run: ./gradlew clean build jlink jpackage
+ 
+  # Job pour tester sous macOS
+  test-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Vérifier le code
+        uses: actions/checkout@v2
+ 
+      - name: Installer Java
+        run: brew install openjdk@11
+ 
+      - name: Vérifier Java
+        run: java -version
+ 
+      - name: Configurer Java 21 pour Gradle
+        run: export JAVA_HOME="$(/usr/libexec/java_home -v 11)" && export PATH="$JAVA_HOME/bin:$PATH"
+ 
+      - name: Construire et tester
+        run: ./gradlew clean build jlink jpackage
