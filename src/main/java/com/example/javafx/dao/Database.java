@@ -1,5 +1,7 @@
 package com.example.javafx.dao;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sqlite.JDBC;
 
 import java.io.File;
@@ -7,14 +9,19 @@ import java.sql.*;
 
 public class Database {
 
+    // Création du Logger SLF4J
+    private static final Logger logger = LoggerFactory.getLogger(Database.class);
+
     private static final String DB_NAME = "database.db";
     private static final String LOCATION = getDatabasePath();
 
     public static void main(String[] args) {
+        System.setProperty("log.dir", getLogDirectory());
+
         if (Database.isOK()) {
-            System.out.println("La base de données et les tables sont prêtes !");
+            logger.info("La base de données et les tables sont prêtes !");
         } else {
-            System.out.println("Erreur de connexion à la base de données.");
+            logger.error("Erreur de connexion à la base de données.");
         }
     }
 
@@ -28,18 +35,24 @@ public class Database {
         try {
             Class.forName("org.sqlite.JDBC");
             DriverManager.registerDriver(new JDBC());
+            logger.info("Drivers SQLite chargés avec succès.");
             return true;
         } catch (ClassNotFoundException | SQLException e) {
+            logger.error("Erreur lors du chargement des drivers SQLite : ", e);
             return false;
         }
     }
 
     private static boolean checkConnection() {
         try (Connection connection = connect()) {
-            return connection != null;
+            if (connection != null) {
+                logger.info("Connexion à la base de données réussie.");
+                return true;
+            }
         } catch (SQLException e) {
-            return false;
+            logger.error("Erreur de connexion à la base de données : ", e);
         }
+        return false;
     }
 
     private static boolean createTableIfNotExists() {
@@ -55,63 +68,80 @@ public class Database {
                 other REAL NOT NULL
             );
         """;
-        try (Connection connection = Database.connect()) {
-            PreparedStatement statement = connection.prepareStatement(createTables);
+        try (Connection connection = Database.connect();
+             PreparedStatement statement = connection.prepareStatement(createTables)) {
             statement.executeUpdate();
+            logger.info("Table 'expense' vérifiée/créée avec succès.");
             return true;
         } catch (SQLException exception) {
+            logger.error("Erreur lors de la création des tables : ", exception);
             return false;
         }
     }
 
     protected static Connection connect() {
         String dbPrefix = "jdbc:sqlite:";
-        Connection connection;
         try {
-            connection = DriverManager.getConnection(dbPrefix + LOCATION);
+            Connection connection = DriverManager.getConnection(dbPrefix + LOCATION);
+            logger.info("Connexion à la base de données établie : {}", LOCATION);
+            return connection;
         } catch (SQLException exception) {
+            logger.error("Impossible de se connecter à la base de données : ", exception);
             return null;
         }
-        return connection;
     }
 
     private static String getDatabasePath() {
         String appData;
+        String os = System.getProperty("os.name").toLowerCase();
 
-        // Vérifie si le système d'exploitation est Windows
-        if (System.getProperty("os.name").toLowerCase().contains("win")) {
-            // Sur Windows, on utilise %APPDATA% (AppData\Roaming)
+        if (os.contains("win")) {
             appData = System.getenv("APPDATA");
             if (appData == null) {
                 appData = System.getProperty("user.home") + "\\AppData\\Roaming";
             }
-        }
-        // Vérifie si le système d'exploitation est macOS
-        else if (System.getProperty("os.name").toLowerCase().contains("mac")) {
-            // Sur macOS, on utilise ~/Library/Application Support
+        } else if (os.contains("mac")) {
             appData = System.getProperty("user.home") + "/Library/Application Support";
-        }
-        // Si c'est Linux
-        else if (System.getProperty("os.name").toLowerCase().contains("nix") || System.getProperty("os.name").toLowerCase().contains("nux")) {
-            // Sur Linux, on peut utiliser ~/.local/share pour les données de l'application
+        } else if (os.contains("nix") || os.contains("nux")) {
             appData = System.getProperty("user.home") + "/.local/share";
-        }
-        else {
-            // Si un autre OS est détecté, on met un chemin par défaut
+        } else {
             appData = System.getProperty("user.home");
         }
 
-        // Chemin du dossier de l'application
         String appFolder = appData + File.separator + "GestionDepence";
-
-        // Crée le dossier s'il n'existe pas déjà
         File folder = new File(appFolder);
         if (!folder.exists()) {
-            folder.mkdirs();
+            if (folder.mkdirs()) {
+                logger.info("Dossier créé pour stocker la base de données : {}", appFolder);
+            } else {
+                logger.warn("Impossible de créer le dossier pour la base de données.");
+            }
         }
 
-        // Renvoie le chemin complet vers la base de données
-        return appFolder + File.separator + DB_NAME;
+        String databasePath = appFolder + File.separator + DB_NAME;
+        logger.info("Chemin de la base de données : {}", databasePath);
+        return databasePath;
     }
 
+    private static String getLogDirectory() {
+        String os = System.getProperty("os.name").toLowerCase();
+        String logDir;
+
+        if (os.contains("win")) {
+            logDir = System.getenv("APPDATA") + "\\GestionDepence\\logs";
+        } else if (os.contains("mac")) {
+            logDir = System.getProperty("user.home") + "/Library/Application Support/GestionDepence/logs";
+        } else if (os.contains("nix") || os.contains("nux")) {
+            logDir = System.getProperty("user.home") + "/.local/share/GestionDepence/logs";
+        } else {
+            logDir = System.getProperty("user.home") + "/GestionDepence/logs";
+        }
+
+        File logFolder = new File(logDir);
+        if (!logFolder.exists()) {
+            logFolder.mkdirs();
+        }
+
+        return logDir;
+    }
 }

@@ -4,12 +4,16 @@ import com.example.javafx.models.Expense;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
 public class FormulaireDialogController {
+
+    private static final Logger logger = LoggerFactory.getLogger(FormulaireDialogController.class);
 
     @FXML private DatePicker periodeField;
     @FXML private TextField logementField;
@@ -26,6 +30,7 @@ public class FormulaireDialogController {
 
     @FXML
     public void initialize() {
+        logger.info("Initialisation du formulaire de dépense.");
 
         periodeField.valueProperty().addListener((obs, oldVal, newVal) -> validateForm());
         addNumericValidation(logementField);
@@ -63,7 +68,6 @@ public class FormulaireDialogController {
     @FXML
     public void handleOk() {
         try {
-
             float total = Float.parseFloat(logementField.getText()) +
                     Float.parseFloat(nourritureField.getText()) +
                     Float.parseFloat(sortiesField.getText()) +
@@ -83,14 +87,17 @@ public class FormulaireDialogController {
                     Float.parseFloat(impotsField.getText()),
                     Float.parseFloat(autresField.getText())
             );
+
+            logger.info("Nouvelle dépense créée avec succès : {}", newExpense);
             closeForm();
         } catch (Exception e) {
-            System.out.println("Erreur de saisie : " + e.getMessage());
+            logger.error("Erreur de saisie dans le formulaire : ", e);
         }
     }
 
     @FXML
     public void handleCancel() {
+        logger.info("Annulation de l'ajout d'une dépense.");
         newExpense = null;
         closeForm();
     }
