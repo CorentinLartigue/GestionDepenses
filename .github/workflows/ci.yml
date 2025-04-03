@@ -21,6 +21,8 @@ jobs:
           cache: 'gradle'
       - name: Vérifier Java
         run: java -version
+      - name: Donner les permissions à gradlew
+        run: chmod +x gradlew
       - name: Construire et tester
         run: ./gradlew clean build jlink jpackage
  
@@ -38,8 +40,6 @@ jobs:
           cache: 'gradle'
       - name: Vérifier Java
         run: java -version
-      - name: Donner les permissions à gradlew
-        run: chmod +x gradlew
       - name: Construire et tester
         run: ./gradlew clean build jlink jpackage
  
@@ -49,15 +49,13 @@ jobs:
     steps:
       - name: Vérifier le code
         uses: actions/checkout@v2
- 
       - name: Installer Java
         run: brew install openjdk@11
- 
       - name: Vérifier Java
         run: java -version
- 
       - name: Configurer Java 21 pour Gradle
         run: export JAVA_HOME="$(/usr/libexec/java_home -v 11)" && export PATH="$JAVA_HOME/bin:$PATH"
- 
+      - name: Donner les permissions à gradlew
+        run: chmod +x gradlew
       - name: Construire et tester
         run: ./gradlew clean build jlink jpackage
