@@ -7,10 +7,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Button?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" alignment="center" stylesheets="@css/board-view.css" fx:controller="com.example.javafx.controllers.ExpenseController">
+<VBox xmlns:fx="http://javafx.com/fxml" alignment="center" stylesheets="@css/board-view.css" fx:controller="com.example.javafx.controllers.IncomeController">
     <fx:include source="header.fxml"/>
-    <Label styleClass="title" text="Tableau récapitulatif des dépenses"/>
-    <TableView fx:id="expenseTable" >
+    <Label styleClass="title" text="Tableau récapitulatif des revenus"/>
+    <TableView fx:id="incomeTable" >
         <columns>
             <TableColumn editable="false" text="Periode">
                 <cellValueFactory>
@@ -22,34 +22,24 @@
                     <PropertyValueFactory property="total"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn editable="false" text="Logement">
+            <TableColumn editable="false" text="Salaire">
                 <cellValueFactory>
-                    <PropertyValueFactory property="logement"/>
+                    <PropertyValueFactory property="salaire"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn editable="false" text="Nourriture">
+            <TableColumn editable="false" text="Aides">
                 <cellValueFactory>
-                    <PropertyValueFactory property="nourriture"/>
+                    <PropertyValueFactory property="aides"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn editable="false" text="Sorties">
+            <TableColumn editable="false" text="Auto-Entreprises">
                 <cellValueFactory>
-                    <PropertyValueFactory property="sorties"/>
+                    <PropertyValueFactory property="autoEntreprises"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn editable="false" text="Voiture/Transport">
+            <TableColumn editable="false" text="Revenus passifs">
                 <cellValueFactory>
-                    <PropertyValueFactory property="voiture"/>
-                </cellValueFactory>
-            </TableColumn>
-            <TableColumn editable="false" text="Voyage">
-                <cellValueFactory>
-                    <PropertyValueFactory property="voyage"/>
-                </cellValueFactory>
-            </TableColumn>
-            <TableColumn editable="false" text="Impôts">
-                <cellValueFactory>
-                    <PropertyValueFactory property="impots"/>
+                    <PropertyValueFactory property="revenusPassifs"/>
                 </cellValueFactory>
             </TableColumn>
             <TableColumn editable="false" text="Autres">
@@ -60,5 +50,5 @@
         </columns>
     </TableView>
 
-    <Button text="Ajouter" onAction="#addLine"/>
+    <Button text="Ajouter" onAction="#addIncome"/>
 </VBox>

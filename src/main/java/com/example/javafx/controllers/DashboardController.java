@@ -1,12 +1,15 @@
 package com.example.javafx.controllers;
 
 import com.example.javafx.dao.ExpenseDAO;
+import com.example.javafx.dao.IncomeDAO;
 import com.example.javafx.models.Expense;
+import com.example.javafx.models.Income;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.chart.PieChart;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 
 import java.time.LocalDate;
@@ -28,19 +31,22 @@ public class DashboardController {
     private LineChart<String, Number> lineChart;
 
     @FXML
+    private BarChart<String, Number> barChart;
+
+    @FXML
     public void initialize() {
         System.out.println("Tableau de bord chargé !");
-
         populateMonthChoiceBox();
 
         monthChoiceBox.setOnAction(event -> {
             System.out.println("Mois sélectionné: " + monthChoiceBox.getValue());
-            loadExpensesForSelectedMonth();
+            loadExpensesForSelectedMonth();  // Met à jour uniquement le PieChart
         });
 
-        loadExpensesForSelectedMonth();
+        loadExpensesForSelectedMonth(); // Mise à jour initiale du PieChart
+        updateLineChart();              // Chargement initial du LineChart
+        loadLast12MonthsData();         // Chargement initial du BarChart
     }
-
 
     private void populateMonthChoiceBox() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM");
@@ -55,7 +61,6 @@ public class DashboardController {
         monthChoiceBox.setValue(currentMonth);
     }
 
-
     private void loadExpensesForSelectedMonth() {
         String selectedMonth = monthChoiceBox.getValue();
         if (selectedMonth != null) {
@@ -64,18 +69,16 @@ public class DashboardController {
             if (expenses.isEmpty()) {
                 System.out.println("Aucune dépense trouvée pour le mois: " + selectedMonth);
             }
-            updateCharts(expenses);
+            updatePieChart(expenses);
         }
     }
 
-
-    private void updateCharts(List<Expense> expenses) {
-        if (expenses.isEmpty()) {
-            return;
-        }
-
+    private void updatePieChart(List<Expense> expensesForSelectedMonth) {
         pieChart.getData().clear();
-        for (Expense expense : expenses) {
+        pieChart.setLegendVisible(false);
+
+        if (!expensesForSelectedMonth.isEmpty()) {
+            Expense expense = expensesForSelectedMonth.get(0);
             pieChart.getData().add(new PieChart.Data("Logement", expense.getLogement()));
             pieChart.getData().add(new PieChart.Data("Nourriture", expense.getNourriture()));
             pieChart.getData().add(new PieChart.Data("Sorties", expense.getSorties()));
@@ -84,22 +87,104 @@ public class DashboardController {
             pieChart.getData().add(new PieChart.Data("Impôts", expense.getImpots()));
             pieChart.getData().add(new PieChart.Data("Autres", expense.getAutres()));
         }
-
-        lineChart.getData().clear();
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("Dépenses par catégorie");
-
-        for (Expense expense : expenses) {
-            series.getData().add(new XYChart.Data<>("Logement", expense.getLogement()));
-            series.getData().add(new XYChart.Data<>("Nourriture", expense.getNourriture()));
-            series.getData().add(new XYChart.Data<>("Sorties", expense.getSorties()));
-            series.getData().add(new XYChart.Data<>("Voiture", expense.getVoiture()));
-            series.getData().add(new XYChart.Data<>("Voyage", expense.getVoyage()));
-            series.getData().add(new XYChart.Data<>("Impôts", expense.getImpots()));
-            series.getData().add(new XYChart.Data<>("Autres", expense.getAutres()));
-        }
-
-        lineChart.getData().add(series);
     }
 
+    private void updateLineChart() {
+        lineChart.getData().clear();
+
+        XYChart.Series<String, Number> logementSeries = new XYChart.Series<>();
+        XYChart.Series<String, Number> nourritureSeries = new XYChart.Series<>();
+        XYChart.Series<String, Number> sortiesSeries = new XYChart.Series<>();
+        XYChart.Series<String, Number> voitureSeries = new XYChart.Series<>();
+        XYChart.Series<String, Number> voyageSeries = new XYChart.Series<>();
+        XYChart.Series<String, Number> impotsSeries = new XYChart.Series<>();
+        XYChart.Series<String, Number> autresSeries = new XYChart.Series<>();
+
+        logementSeries.setName("Logement");
+        nourritureSeries.setName("Nourriture");
+        sortiesSeries.setName("Sorties");
+        voitureSeries.setName("Voiture");
+        voyageSeries.setName("Voyage");
+        impotsSeries.setName("Impôts");
+        autresSeries.setName("Autres");
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM");
+        LocalDate currentDate = LocalDate.now();
+
+        for (int i = 11; i >= 0; i--) {
+            LocalDate month = currentDate.minusMonths(i);
+            String formattedMonth = month.format(formatter);
+            List<Expense> monthlyExpenses = ExpenseDAO.getExpensesForMonth(formattedMonth);
+
+            float logement = 0, nourriture = 0, sorties = 0, voiture = 0, voyage = 0, impots = 0, autres = 0;
+
+            for (Expense e : monthlyExpenses) {
+                logement += e.getLogement();
+                nourriture += e.getNourriture();
+                sorties += e.getSorties();
+                voiture += e.getVoiture();
+                voyage += e.getVoyage();
+                impots += e.getImpots();
+                autres += e.getAutres();
+            }
+
+            logementSeries.getData().add(new XYChart.Data<>(formattedMonth, logement));
+            nourritureSeries.getData().add(new XYChart.Data<>(formattedMonth, nourriture));
+            sortiesSeries.getData().add(new XYChart.Data<>(formattedMonth, sorties));
+            voitureSeries.getData().add(new XYChart.Data<>(formattedMonth, voiture));
+            voyageSeries.getData().add(new XYChart.Data<>(formattedMonth, voyage));
+            impotsSeries.getData().add(new XYChart.Data<>(formattedMonth, impots));
+            autresSeries.getData().add(new XYChart.Data<>(formattedMonth, autres));
+        }
+
+        lineChart.getData().addAll(
+                logementSeries,
+                nourritureSeries,
+                sortiesSeries,
+                voitureSeries,
+                voyageSeries,
+                impotsSeries,
+                autresSeries
+        );
+    }
+
+    private void loadLast12MonthsData() {
+        if (barChart == null) {
+            System.out.println("BarChart n'est pas initialisé !");
+            return;
+        }
+
+        barChart.getData().clear();
+
+        XYChart.Series<String, Number> expenseSeries = new XYChart.Series<>();
+        XYChart.Series<String, Number> incomeSeries = new XYChart.Series<>();
+
+        expenseSeries.setName("Dépenses Totales");
+        incomeSeries.setName("Revenus Totaux");
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM");
+        LocalDate currentDate = LocalDate.now();
+
+        for (int i = 11; i >= 0; i--) {
+            LocalDate month = currentDate.minusMonths(i);
+            String formattedMonth = month.format(formatter);
+
+            List<Expense> monthlyExpenses = ExpenseDAO.getExpensesForMonth(formattedMonth);
+            float totalExpenses = 0;
+            for (Expense expense : monthlyExpenses) {
+                totalExpenses += expense.getTotal();
+            }
+
+            List<Income> monthlyIncomes = IncomeDAO.getIncomesForMonth(formattedMonth);
+            float totalIncomes = 0;
+            for (Income income : monthlyIncomes) {
+                totalIncomes += income.getTotal();
+            }
+
+            expenseSeries.getData().add(new XYChart.Data<>(formattedMonth, totalExpenses));
+            incomeSeries.getData().add(new XYChart.Data<>(formattedMonth, totalIncomes));
+        }
+
+        barChart.getData().addAll(expenseSeries, incomeSeries);
+    }
 }

@@ -20,17 +20,6 @@ public class ExpenseDAO {
     private static final String SELECT_ALL_EXPENSES =
             "SELECT * FROM expense";
 
-    private static final String DELETE_EXPENSE =
-            "DELETE FROM expense WHERE date = ?";
-
-    private static final String UPDATE_EXPENSE =
-            """
-            UPDATE expense
-            SET housing = ?, food = ?, goingOut = ?, transportation = ?, travel = ?, tax = ?, other = ?
-            WHERE date = ?;
-            """;
-
-
 
     public static void insertExpense(Expense expense) {
         try (Connection connection = Database.connect();

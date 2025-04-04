@@ -23,11 +23,17 @@ public class HeaderController {
         switchScene(stage, "dashboard-view.fxml");
     }
 
+    @FXML
+    private void switchToIncome(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((javafx.scene.control.MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+        switchScene(stage, "income-view.fxml");
+    }
+
     private void switchScene(Stage stage, String fxmlFile) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/javafx/" + fxmlFile));
         Parent root = loader.load();
 
-        Scene scene = new Scene(root, 800, 400);
+        Scene scene = new Scene(root, 1400, 800);
 
         stage.setScene(scene);
         stage.show();

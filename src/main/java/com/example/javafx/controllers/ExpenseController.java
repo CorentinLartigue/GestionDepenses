@@ -52,7 +52,7 @@ public class ExpenseController {
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/javafx/assets/app_icon.jpg")));
             formStage.getIcons().add(icon);
 
-            FormulaireDialogController formController = fxmlLoader.getController();
+            ExpenseFormulaireDialog formController = fxmlLoader.getController();
             formStage.showAndWait();
 
             Optional<Expense> newExpense = formController.getNewExpense();

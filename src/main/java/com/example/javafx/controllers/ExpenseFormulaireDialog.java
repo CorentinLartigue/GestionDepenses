@@ -11,9 +11,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-public class FormulaireDialogController {
+public class ExpenseFormulaireDialog {
 
-    private static final Logger logger = LoggerFactory.getLogger(FormulaireDialogController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ExpenseFormulaireDialog.class);
 
     @FXML private DatePicker periodeField;
     @FXML private TextField logementField;

@@ -13,6 +13,7 @@
             <Menu text="Navigation">
                 <MenuItem text="Tableau de bord" onAction="#switchToBoard"/>
                 <MenuItem text="Gestion Dépence" onAction="#switchToDepence"/>
+                <MenuItem text="Gestion Revenus" onAction="#switchToIncome"/>
             </Menu>
         </MenuBar>
     </top>

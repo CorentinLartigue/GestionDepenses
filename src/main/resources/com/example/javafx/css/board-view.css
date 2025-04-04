@@ -1,0 +1,56 @@
+
+.title {
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #133f60;
+
+}
+
+TableView {
+    -fx-border-width: 1px;
+
+    -fx-padding: 10px;
+
+    -fx-font-size: 14px;
+
+    -fx-background-radius: 20;
+
+    -fx-border-radius: 20;
+
+}
+
+Label {
+    -fx-text-fill: white;
+
+}
+
+.button {
+    -fx-background-color: #133f60;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-border-color: black;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: black;
+}
+
+
+
+TableView .column-header{
+    -fx-background-color: Black ;
+    -fx-text-fill: white;
+}
+
+TableRow:odd {
+
+    -fx-background-color: #b3d9ff;
+
+}
+TableRow:even {
+
+    -fx-background-color: #84a8c4;
+}

@@ -28,7 +28,7 @@ public class HelloApplication extends Application {
         }
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/javafx/dashboard-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 800, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 1400, 800);
         stage.setTitle("Tableau de Bord");
         stage.setScene(scene);
 

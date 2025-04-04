@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.javafx.controllers.FormulaireDialogController" stylesheets="@css/form-expense-view.css">
+<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.javafx.controllers.ExpenseFormulaireDialog" stylesheets="@css/form-view.css">
   <Label text="Formulaire d'ajout de dépenses"/>
   <GridPane hgap="10" vgap="10">
     <Label text="Période (jj/mm/aaaa) :" GridPane.rowIndex="0" GridPane.columnIndex="0"/>

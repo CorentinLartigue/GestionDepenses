@@ -7,6 +7,7 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 
+<?import javafx.scene.chart.BarChart?>
 <VBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.javafx.controllers.DashboardController"
       stylesheets="@css/dashboard.css"
@@ -24,12 +25,21 @@
 
     <PieChart fx:id="pieChart" prefWidth="500" prefHeight="300"/>
 
-    <LineChart fx:id="lineChart" prefWidth="500" prefHeight="300">
+    <LineChart fx:id="lineChart" prefWidth="500" prefHeight="300" title="Évolution des dépenses">
         <xAxis>
-            <CategoryAxis fx:id="xAxis" />
+            <CategoryAxis fx:id="xAxis" label="Date (mois)"/>
         </xAxis>
         <yAxis>
-            <NumberAxis fx:id="yAxis" />
+            <NumberAxis fx:id="yAxis" label="Montant (€)"/>
         </yAxis>
     </LineChart>
+
+    <BarChart fx:id="barChart" prefWidth="500" prefHeight="300" title="Dépenses VS Revenus">
+        <xAxis>
+            <CategoryAxis fx:id="barChartXAxis"  label="Date (mois)"/>
+        </xAxis>
+        <yAxis>
+            <NumberAxis fx:id="barChartYAxis" label="Montant (€)" />
+        </yAxis>
+    </BarChart>
 </VBox>

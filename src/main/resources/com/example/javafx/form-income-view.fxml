@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.javafx.controllers.IncomeFormulaireDialog" stylesheets="@css/form-view.css">
+  <Label text="Formulaire d'ajout de revenus"/>
+  <GridPane hgap="10" vgap="10">
+    <Label text="Période (jj/mm/aaaa) :" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <DatePicker fx:id="periodeField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+    <Label text="Salaire :" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <TextField fx:id="salaireField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+    <Label text="Aides :" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+    <TextField fx:id="aidesField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+    <Label text="Auto-entreprises :" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+    <TextField fx:id="autoEntreprisesField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+    <Label text="Revenus passifs :" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+    <TextField fx:id="revenusPassifsField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+    <Label text="Autres :" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+    <TextField fx:id="autresField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+  </GridPane>
+
+  <HBox spacing="10">
+    <Button text="Annuler" onAction="#handleCancel"/>
+    <Button fx:id="validateButton" text="Valider" onAction="#handleOk"/>
+  </HBox>
+</VBox>
