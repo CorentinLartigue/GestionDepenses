@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.javafx.controllers.DashboardController"
+      stylesheets="@css/dashboard.css"
+      alignment="center">
+
+    <fx:include source="header.fxml"/>
+
+    <Label text="Tableau de bord" styleClass="title"/>
+
+    <VBox spacing="20">
+        <Label text="Bienvenue sur le tableau de bord !" styleClass="label welcome"/>
+    </VBox>
+
+    <ChoiceBox fx:id="monthChoiceBox" prefWidth="200" />
+
+    <PieChart fx:id="pieChart" prefWidth="500" prefHeight="300"/>
+
+    <LineChart fx:id="lineChart" prefWidth="500" prefHeight="300">
+        <xAxis>
+            <CategoryAxis fx:id="xAxis" />
+        </xAxis>
+        <yAxis>
+            <NumberAxis fx:id="yAxis" />
+        </yAxis>
+    </LineChart>
+</VBox>

@@ -1,9 +1,10 @@
 module com.example.javafx {
     requires javafx.controls;
     requires javafx.fxml;
-    requires java.sql;
     requires org.xerial.sqlitejdbc;
     requires org.slf4j;
+    requires reload4j;
+    requires org.apache.logging.log4j.core;
 
 
     opens com.example.javafx to javafx.fxml;
@@ -14,5 +15,6 @@ module com.example.javafx {
     opens com.example.javafx.controllers to javafx.fxml;
     exports com.example.javafx.dao;
     opens com.example.javafx.dao to javafx.fxml;
+
 
 }

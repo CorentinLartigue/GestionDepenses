@@ -1,0 +1,12 @@
+.root {
+    -fx-font-family: "Arial";
+    -fx-background-color: #e6f2ff;
+    -fx-padding: 20px;
+}
+.title {
+    -fx-font-size: 20px;
+    -fx-text-fill: #0056b3;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 0;
+    -fx-alignment: center;
+}

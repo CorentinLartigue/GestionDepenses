@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            stylesheets="@css/header.css"
+            fx:controller="com.example.javafx.controllers.HeaderController"
+            fx:id="header">
+
+    <top>
+        <MenuBar>
+            <Menu text="Navigation">
+                <MenuItem text="Tableau de bord" onAction="#switchToBoard"/>
+                <MenuItem text="Gestion Dépence" onAction="#switchToDepence"/>
+            </Menu>
+        </MenuBar>
+    </top>
+</BorderPane>

@@ -7,8 +7,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Button?>
 
-
 <VBox xmlns:fx="http://javafx.com/fxml" alignment="center" stylesheets="@css/expense-view.css" fx:controller="com.example.javafx.controllers.ExpenseController">
+    <fx:include source="header.fxml"/>
     <Label styleClass="title" text="Tableau récapitulatif des dépenses"/>
     <TableView fx:id="expenseTable" >
         <columns>

@@ -7,23 +7,12 @@ import org.sqlite.JDBC;
 import java.io.File;
 import java.sql.*;
 
-public class Database {
 
-    // Création du Logger SLF4J
+public class Database {
     private static final Logger logger = LoggerFactory.getLogger(Database.class);
 
     private static final String DB_NAME = "database.db";
     private static final String LOCATION = getDatabasePath();
-
-    public static void main(String[] args) {
-        System.setProperty("log.dir", getLogDirectory());
-
-        if (Database.isOK()) {
-            logger.info("La base de données et les tables sont prêtes !");
-        } else {
-            logger.error("Erreur de connexion à la base de données.");
-        }
-    }
 
     public static boolean isOK() {
         if (!checkDrivers()) return false;
@@ -123,25 +112,4 @@ public class Database {
         return databasePath;
     }
 
-    private static String getLogDirectory() {
-        String os = System.getProperty("os.name").toLowerCase();
-        String logDir;
-
-        if (os.contains("win")) {
-            logDir = System.getenv("APPDATA") + "\\GestionDepence\\logs";
-        } else if (os.contains("mac")) {
-            logDir = System.getProperty("user.home") + "/Library/Application Support/GestionDepence/logs";
-        } else if (os.contains("nix") || os.contains("nux")) {
-            logDir = System.getProperty("user.home") + "/.local/share/GestionDepence/logs";
-        } else {
-            logDir = System.getProperty("user.home") + "/GestionDepence/logs";
-        }
-
-        File logFolder = new File(logDir);
-        if (!logFolder.exists()) {
-            logFolder.mkdirs();
-        }
-
-        return logDir;
-    }
 }

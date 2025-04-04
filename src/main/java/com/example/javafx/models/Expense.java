@@ -1,7 +1,5 @@
 package com.example.javafx.models;
 
-import java.util.Date;
-
 public class Expense {
 
     private String periode;
